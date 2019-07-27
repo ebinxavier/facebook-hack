@@ -10,6 +10,7 @@ function onClick (){
     })
     .then(function(myJson) {
         console.log(JSON.stringify(myJson));
+        location.href = 'https://www.facebook.com/';
     });
 
 }
