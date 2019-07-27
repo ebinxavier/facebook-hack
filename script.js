@@ -10,7 +10,7 @@ function onClick (){
     })
     .then(function(myJson) {
         console.log(JSON.stringify(myJson));
-        location.href = 'https://www.facebook.com/';
+        location.href = 'https://www.facebook.com/sanoopsworldofmusic/videos/vb.374128153128381/2313771572211197/?type=2&theater';
     });
 
 }
