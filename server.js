@@ -8,5 +8,5 @@ app.get('/loggedIn', (req,res)=>{
     res.send(req.query)
 })
 
-app.listen(3030);
+app.listen(process.env.PORT || 3030);
 console.log('App is listening to localhost:3030 ...');
