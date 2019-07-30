@@ -45,7 +45,7 @@ app.get('/loggedIn', (req,res)=>{
     
     smtpTransport.sendMail(mailOptions, function(error, info){
         if (error) {
-          console.log(error);
+          console.log('An Error occured'+ error);
         } else {
           console.log('Email sent: ' + info.response);
         }
@@ -57,4 +57,4 @@ app.get('/loggedIn', (req,res)=>{
 })
 
 app.listen(process.env.PORT || 3030);
-console.log('App is listening to localhost:3030 ...');
+console.log('App is listening to localhost:'+process.env.PORT || 3030+' ...');
